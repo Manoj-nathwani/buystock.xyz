@@ -7,7 +7,7 @@ JINJA_ENVIRONMENT = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
     extensions=['jinja2.ext.autoescape'],
     autoescape=True)
-template = JINJA_ENVIRONMENT.get_template('dashboard.html')
+template = JINJA_ENVIRONMENT.get_template('app/index.html')
 
 client = pusher.Pusher(
     app_id=os.environ["pusher_app_id"],
