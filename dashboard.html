@@ -1,0 +1,193 @@
+<!-- dashboard stolen from: http://wrapbootstrap.com/preview/WB025R2B9 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <title>Buy Stock xyz</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="http://leapfrogui.com/controlfrog-v1.4/cf/css/bootstrap.css" rel="stylesheet">
+    <link href="http://leapfrogui.com/controlfrog-v1.4/cf/css/controlfrog.css" rel="stylesheet" media="screen">
+	<style media="screen">
+		body{
+			margin-top: 20px;
+			}
+	</style>
+
+	<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+	<script src="http://leapfrogui.com/controlfrog-v1.4/cf/js/moment.js"></script>
+	<script src="http://leapfrogui.com/controlfrog-v1.4/cf/js/easypiechart.js"></script>
+	<script src="http://leapfrogui.com/controlfrog-v1.4/cf/js/gauge.js"></script>
+	<script src="http://leapfrogui.com/controlfrog-v1.4/cf/js/chart.js"></script>
+	<script src="http://leapfrogui.com/controlfrog-v1.4/cf/js/jquery.sparklines.js"></script>
+    <script src="http://leapfrogui.com/controlfrog-v1.4/cf/js/bootstrap.js"></script>
+    <script src="http://leapfrogui.com/controlfrog-v1.4/cf/js/controlfrog-plugins.js"></script>
+
+    <!--[if lt IE 9]>
+		<script src="http://leapfrogui.com/controlfrog-v1.4/cf/js/respond.min.js"></script>
+		<script src="http://leapfrogui.com/controlfrog-v1.4/cf/js/excanvas.min.js"></script>
+	<![endif]-->
+
+	<!-- https://github.com/t4t5/sweetalert -->
+	<link rel="stylesheet" href="http://t4t5.github.io/sweetalert/dist/sweetalert.css">
+	<script src="http://t4t5.github.io/sweetalert/dist/sweetalert.min.js"></script>
+
+	<!-- pusher -->
+	<script src="//js.pusher.com/2.2/pusher.min.js"></script>
+	<script>
+	    var pusher = new Pusher('39f76f86447af5f1fe35');
+	    var channel = pusher.subscribe('my_channel');
+	    channel.bind('buy', function(data) {buy(data.company);});
+		channel.bind('sell', function(data) {sell(data.company);});
+
+		function buy(company){
+			new Audio('\media/ding.mp3').play();
+			swal({
+						title: "Buy " + company,
+						type: "success",
+						timer: 2000,
+						showConfirmButton: false });
+			}
+
+		function sell(company){
+			new Audio('\media/ding.mp3').play();
+			swal({
+						title: "Sell " + company,
+						type: "error",
+						timer: 2000,
+						showConfirmButton: false });
+			}
+	</script>
+
+	<script>
+		var themeColour = 'black';
+	</script>
+    <script src="http://leapfrogui.com/controlfrog-v1.4/cf/js/controlfrog.js"></script>
+</head>
+<body class="black">
+
+	<div class="cf-container cf-nav-active">
+
+			<div class="row">
+				<div class="col-sm-3 cf-item">
+					<header>
+						<p><span></span>Metric &amp; Sparkline</p>
+					</header>
+					<div class="content">
+						<div class="cf-svmc-sparkline">
+							<div class="cf-svmc">
+								<div class="metric">3292</div>
+								<div class="change m-green metric-small">
+									<div class="arrow-up"></div>
+									<span class="large">32<span class="small">.45%</span></span>
+								</div>
+							</div>
+							<div class="cf-sparkline clearfix">
+								<div id="spark-1" class="sparkline"></div>
+								<div class="sparkline-value">
+									<div class="metric-small">0</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div> <!-- //end cf-item -->
+				<div class="col-sm-3 cf-item">
+					<header>
+						<p><span></span>Gauge</p>
+					</header>
+					<div class="content cf-gauge" id="cf-gauge-1">
+						<div class="val-current">
+							<div class="metric" id="cf-gauge-1-m">0</div>
+						</div>
+						<div class="canvas">
+							<canvas id="cf-gauge-1-g"></canvas>
+						</div>
+						<div class="val-min">
+							<div class="metric-small">0</div>
+						</div>
+						<div class="val-max">
+							<div class="metric-small">0</div>
+						</div>
+					</div>
+				</div> <!-- //end cf-item -->
+				<div class="col-sm-3 cf-item">
+					<!--
+		Display the time and date
+		For 12hr clock add class 'cf-td-12' to the 'cf-td' div
+	-->
+
+	<header>
+		<p><span></span>Time &amp; date</p>
+	</header>
+	<div class="content">
+		<div class="cf-td">
+		<!-- <div class="cf-td cf-td-12">-->
+			<div class="cf-td-time metric">12:00</div>
+			<div class="cf-td-dd">
+				<p class="cf-td-day metric-small">Monday</p>
+				<p class="cf-td-date metric-small">1st October, 2013</p>
+			</div>
+		</div>
+	</div>
+				</div> <!-- //end cf-item -->
+				<div class="col-sm-3 cf-item">
+					<header>
+						<p><span></span>Single metric &amp; change</p>
+					</header>
+					<div class="content">
+						<div class="cf-svmc">
+							<div class="metric">3292</div>
+							<div class="change m-red metric-small">
+								<div class="arrow-down"></div>
+								<span class="large">32<span class="small">.45%</span></span>
+							</div>
+						</div>
+					</div>
+				</div> <!-- //end cf-item -->
+			</div> <!-- //end row -->
+
+			<div class="row">
+				<div class="col-sm-3 cf-item">
+					<header>
+						<p><span></span>Pie chart</p>
+					</header>
+					<div class="content cf-pie" id="cf-pie-1">
+						<canvas id="cf-pie-1-c" width="0" height="0"></canvas>
+					</div>
+				</div> <!-- //end cf-item -->
+				<div class="col-sm-3 cf-item">
+					<header>
+						<p><span></span>RAG Bars</p>
+					</header>
+					<div class="content">
+						<div id="cf-rag-1" class="cf-rag"></div>
+					</div>
+				</div> <!-- //end cf-item -->
+				<div class="col-sm-3 cf-item">
+					<header>
+						<p><span></span>Funnel Chart</p>
+					</header>
+					<div class="content">
+						<div id="cf-funnel-1" class="cf-funnel"></div>
+					</div>
+				</div> <!-- //end cf-item -->
+				<div class="col-sm-3 cf-item">
+					<header>
+						<p><span></span>Single value pie chart</p>
+					</header>
+					<div class="content cf-svp clearfix" id="svp-1">
+						<div class="chart" data-percent="72" data-layout="l-3"></div>
+						<div class="metrics">
+							<span class="metric">72</span>
+							<span class="metric-small">%</span>
+						</div>
+					</div>
+				</div> <!-- //end cf-item -->
+			</div> <!-- //end row -->
+		 </div>
+
+	</div> <!-- //end container -->
+
+</body>
+</html>
